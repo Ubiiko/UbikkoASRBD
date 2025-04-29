@@ -1,4 +1,4 @@
-// page/api/movies/[idMovie]/comments/[idComment]/route.ts
+// app/api/movies/[idMovie]/comments/[idComment]/route.ts
 
 import { NextResponse } from 'next/server';
 import clientPromise from '@/lib/mongodb';
@@ -9,20 +9,17 @@ import { Db, MongoClient, ObjectId } from 'mongodb';
  * /api/movies/{idMovie}/comments/{idComment}:
  *   get:
  *     summary: Get a comment by ID
- *     description: Retrieve a single comment document by its MongoDB ObjectId.
  *     parameters:
  *       - in: path
  *         name: idMovie
  *         required: true
  *         schema:
  *           type: string
- *         description: MongoDB ObjectId of the movie
  *       - in: path
  *         name: idComment
  *         required: true
  *         schema:
  *           type: string
- *         description: MongoDB ObjectId of the comment
  *     responses:
  *       200:
  *         description: Comment found
@@ -33,12 +30,12 @@ import { Db, MongoClient, ObjectId } from 'mongodb';
  *       500:
  *         description: Internal server error
  */
-export async function GET(request: Request, { params }: { params: any }): Promise<NextResponse> {
+export async function GET(request: Request, context: { params: any }): Promise<NextResponse> {
   try {
     const client: MongoClient = await clientPromise;
     const db: Db = client.db('sample_mflix');
 
-    const { idMovie, idComment } = params;
+    const { idMovie, idComment } = context.params;
 
     if (!ObjectId.isValid(idMovie) || !ObjectId.isValid(idComment)) {
       return NextResponse.json({ status: 400, message: 'Invalid ID', error: 'ID format is incorrect' });
@@ -64,14 +61,6 @@ export async function GET(request: Request, { params }: { params: any }): Promis
  * /api/movies/{idMovie}/comments/{idComment}:
  *   post:
  *     summary: Add a comment to a movie
- *     description: Create a new comment linked to a movie.
- *     parameters:
- *       - in: path
- *         name: idMovie
- *         required: true
- *         schema:
- *           type: string
- *         description: MongoDB ObjectId of the movie
  *     responses:
  *       201:
  *         description: Comment created successfully
@@ -80,11 +69,11 @@ export async function GET(request: Request, { params }: { params: any }): Promis
  *       500:
  *         description: Internal server error
  */
-export async function POST(request: Request, { params }: { params: any }): Promise<NextResponse> {
+export async function POST(request: Request, context: { params: any }): Promise<NextResponse> {
   try {
     const client: MongoClient = await clientPromise;
     const db: Db = client.db('sample_mflix');
-    const { idMovie } = params;
+    const { idMovie } = context.params;
 
     if (!ObjectId.isValid(idMovie)) {
       return NextResponse.json({ status: 400, message: 'Invalid movie ID', error: 'ID format is incorrect' });
@@ -111,20 +100,6 @@ export async function POST(request: Request, { params }: { params: any }): Promi
  * /api/movies/{idMovie}/comments/{idComment}:
  *   put:
  *     summary: Update a comment by ID
- *     description: Update a comment document with a specific ID.
- *     parameters:
- *       - in: path
- *         name: idMovie
- *         required: true
- *         schema:
- *           type: string
- *         description: MongoDB ObjectId of the movie
- *       - in: path
- *         name: idComment
- *         required: true
- *         schema:
- *           type: string
- *         description: MongoDB ObjectId of the comment
  *     responses:
  *       200:
  *         description: Comment updated successfully
@@ -135,11 +110,11 @@ export async function POST(request: Request, { params }: { params: any }): Promi
  *       500:
  *         description: Internal server error
  */
-export async function PUT(request: Request, { params }: { params: any }): Promise<NextResponse> {
+export async function PUT(request: Request, context: { params: any }): Promise<NextResponse> {
   try {
     const client: MongoClient = await clientPromise;
     const db: Db = client.db('sample_mflix');
-    const { idMovie, idComment } = params;
+    const { idMovie, idComment } = context.params;
 
     if (!ObjectId.isValid(idMovie) || !ObjectId.isValid(idComment)) {
       return NextResponse.json({ status: 400, message: 'Invalid ID', error: 'ID format is incorrect' });
@@ -175,20 +150,6 @@ export async function PUT(request: Request, { params }: { params: any }): Promis
  * /api/movies/{idMovie}/comments/{idComment}:
  *   delete:
  *     summary: Delete a comment by ID
- *     description: Delete a comment document using its ID.
- *     parameters:
- *       - in: path
- *         name: idMovie
- *         required: true
- *         schema:
- *           type: string
- *         description: MongoDB ObjectId of the movie
- *       - in: path
- *         name: idComment
- *         required: true
- *         schema:
- *           type: string
- *         description: MongoDB ObjectId of the comment
  *     responses:
  *       200:
  *         description: Comment deleted successfully
@@ -199,11 +160,11 @@ export async function PUT(request: Request, { params }: { params: any }): Promis
  *       500:
  *         description: Internal server error
  */
-export async function DELETE(request: Request, { params }: { params: any }): Promise<NextResponse> {
+export async function DELETE(request: Request, context: { params: any }): Promise<NextResponse> {
   try {
     const client: MongoClient = await clientPromise;
     const db: Db = client.db('sample_mflix');
-    const { idMovie, idComment } = params;
+    const { idMovie, idComment } = context.params;
 
     if (!ObjectId.isValid(idMovie) || !ObjectId.isValid(idComment)) {
       return NextResponse.json({ status: 400, message: 'Invalid ID', error: 'ID format is incorrect' });
