@@ -1,3 +1,14 @@
+/**
+ * @swagger
+ * /api/theaters:
+ *   get:
+ *     summary: Récupérer tous les cinémas
+ *     responses:
+ *       200:
+ *         description: Succès
+ *       500:
+ *         description: Erreur serveur
+ */
 import { NextResponse } from 'next/server';
 import { MongoClient, Db } from 'mongodb';
 import clientPromise from '@/lib/mongodb';
