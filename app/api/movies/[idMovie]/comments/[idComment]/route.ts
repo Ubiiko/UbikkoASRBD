@@ -2,11 +2,11 @@ import { NextResponse } from 'next/server';
 import { Db, MongoClient, ObjectId } from 'mongodb';
 import clientPromise from '@/lib/mongodb';
 
-export async function GET(request: Request, { params }: { params: { idMovie: string, idComment: string } }): Promise<NextResponse> {
+export async function GET(request: Request, context: { params: { idMovie: string; idComment: string } }): Promise<NextResponse> {
   try {
     const client: MongoClient = await clientPromise;
     const db: Db = client.db('sample_mflix');
-    const { idMovie, idComment } = params;
+    const { idMovie, idComment } = context.params;
 
     if (!ObjectId.isValid(idComment)) {
       return NextResponse.json({ status: 400, message: 'Invalid comment ID', error: 'ID format is incorrect' });
@@ -35,11 +35,11 @@ export async function PUT(): Promise<NextResponse> {
   return NextResponse.json({ status: 405, message: 'PUT not implemented yet' });
 }
 
-export async function DELETE(request: Request, { params }: { params: { idMovie: string, idComment: string } }): Promise<NextResponse> {
+export async function DELETE(request: Request, context: { params: { idMovie: string; idComment: string } }): Promise<NextResponse> {
   try {
     const client: MongoClient = await clientPromise;
     const db: Db = client.db('sample_mflix');
-    const { idComment } = params;
+    const { idComment } = context.params;
 
     if (!ObjectId.isValid(idComment)) {
       return NextResponse.json({ status: 400, message: 'Invalid comment ID' });
