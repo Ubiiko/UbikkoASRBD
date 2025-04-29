@@ -38,12 +38,16 @@ export async function GET(request: Request, { params }: { params: any }): Promis
     const client: MongoClient = await clientPromise;
     const db: Db = client.db('sample_mflix');
 
-    const { idComment } = params;
-    if (!ObjectId.isValid(idComment)) {
-      return NextResponse.json({ status: 400, message: 'Invalid comment ID', error: 'ID format is incorrect' });
+    const { idMovie, idComment } = params;
+
+    if (!ObjectId.isValid(idMovie) || !ObjectId.isValid(idComment)) {
+      return NextResponse.json({ status: 400, message: 'Invalid ID', error: 'ID format is incorrect' });
     }
 
-    const comment = await db.collection('comments').findOne({ _id: new ObjectId(idComment) });
+    const comment = await db.collection('comments').findOne({
+      _id: new ObjectId(idComment),
+      movie_id: new ObjectId(idMovie),
+    });
 
     if (!comment) {
       return NextResponse.json({ status: 404, message: 'Comment not found', error: 'No comment found with the given ID' });
@@ -135,10 +139,10 @@ export async function PUT(request: Request, { params }: { params: any }): Promis
   try {
     const client: MongoClient = await clientPromise;
     const db: Db = client.db('sample_mflix');
-    const { idComment } = params;
+    const { idMovie, idComment } = params;
 
-    if (!ObjectId.isValid(idComment)) {
-      return NextResponse.json({ status: 400, message: 'Invalid comment ID', error: 'ID format is incorrect' });
+    if (!ObjectId.isValid(idMovie) || !ObjectId.isValid(idComment)) {
+      return NextResponse.json({ status: 400, message: 'Invalid ID', error: 'ID format is incorrect' });
     }
 
     const updatedComment = {
@@ -149,7 +153,10 @@ export async function PUT(request: Request, { params }: { params: any }): Promis
     };
 
     const result = await db.collection('comments').updateOne(
-      { _id: new ObjectId(idComment) },
+      {
+        _id: new ObjectId(idComment),
+        movie_id: new ObjectId(idMovie),
+      },
       { $set: updatedComment }
     );
 
@@ -196,13 +203,16 @@ export async function DELETE(request: Request, { params }: { params: any }): Pro
   try {
     const client: MongoClient = await clientPromise;
     const db: Db = client.db('sample_mflix');
-    const { idComment } = params;
+    const { idMovie, idComment } = params;
 
-    if (!ObjectId.isValid(idComment)) {
-      return NextResponse.json({ status: 400, message: 'Invalid comment ID', error: 'ID format is incorrect' });
+    if (!ObjectId.isValid(idMovie) || !ObjectId.isValid(idComment)) {
+      return NextResponse.json({ status: 400, message: 'Invalid ID', error: 'ID format is incorrect' });
     }
 
-    const result = await db.collection('comments').deleteOne({ _id: new ObjectId(idComment) });
+    const result = await db.collection('comments').deleteOne({
+      _id: new ObjectId(idComment),
+      movie_id: new ObjectId(idMovie),
+    });
 
     if (result.deletedCount === 0) {
       return NextResponse.json({ status: 404, message: 'Comment not found', error: 'No comment to delete with the given ID' });

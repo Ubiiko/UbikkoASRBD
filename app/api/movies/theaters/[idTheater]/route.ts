@@ -1,8 +1,14 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { Db, MongoClient, ObjectId } from 'mongodb';
 import clientPromise from '@/lib/mongodb';
 
-export async function GET(request: Request, { params }: { params: { idTheater: string } }): Promise<NextResponse> {
+type Context = {
+  params: {
+    idTheater: string;
+  }
+}
+
+export async function GET(request: NextRequest, { params }: Context): Promise<NextResponse> {
   try {
     const client: MongoClient = await clientPromise;
     const db: Db = client.db('sample_mflix');
@@ -32,7 +38,7 @@ export async function PUT(): Promise<NextResponse> {
   return NextResponse.json({ status: 405, message: 'PUT method not implemented yet' });
 }
 
-export async function DELETE(request: Request, { params }: { params: { idTheater: string } }): Promise<NextResponse> {
+export async function DELETE(request: NextRequest, { params }: Context): Promise<NextResponse> {
   try {
     const client: MongoClient = await clientPromise;
     const db: Db = client.db('sample_mflix');
