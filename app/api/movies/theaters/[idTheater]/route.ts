@@ -40,21 +40,16 @@
  *       404:
  *         description: Non trouvé
  */
+
 import { NextRequest, NextResponse } from 'next/server';
-import { Db, MongoClient, ObjectId } from 'mongodb';
+import { MongoClient, Db, ObjectId } from 'mongodb';
 import clientPromise from '@/lib/mongodb';
 
-type Context = {
-  params: {
-    idTheater: string;
-  }
-}
-
-export async function GET(request: NextRequest, { params }: Context): Promise<NextResponse> {
+export async function GET(request: NextRequest, context: { params: any }): Promise<NextResponse> {
   try {
     const client: MongoClient = await clientPromise;
     const db: Db = client.db('sample_mflix');
-    const { idTheater } = params;
+    const { idTheater } = context.params;
 
     if (!ObjectId.isValid(idTheater)) {
       return NextResponse.json({ status: 400, message: 'Invalid theater ID' });
@@ -80,11 +75,11 @@ export async function PUT(): Promise<NextResponse> {
   return NextResponse.json({ status: 405, message: 'PUT method not implemented yet' });
 }
 
-export async function DELETE(request: NextRequest, { params }: Context): Promise<NextResponse> {
+export async function DELETE(request: NextRequest, context: { params: any }): Promise<NextResponse> {
   try {
     const client: MongoClient = await clientPromise;
     const db: Db = client.db('sample_mflix');
-    const { idTheater } = params;
+    const { idTheater } = context.params;
 
     if (!ObjectId.isValid(idTheater)) {
       return NextResponse.json({ status: 400, message: 'Invalid theater ID' });
