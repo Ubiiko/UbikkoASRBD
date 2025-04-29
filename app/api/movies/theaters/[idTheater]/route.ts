@@ -1,3 +1,45 @@
+/**
+ * @swagger
+ * /api/theaters/{idTheater}:
+ *   get:
+ *     summary: Récupérer un cinéma
+ *     parameters:
+ *       - name: idTheater
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Succès
+ *       404:
+ *         description: Cinéma non trouvé
+ *   post:
+ *     summary: Ajouter un cinéma
+ *     responses:
+ *       201:
+ *         description: Créé
+ *   put:
+ *     summary: Modifier un cinéma
+ *     responses:
+ *       200:
+ *         description: Modifié
+ *       404:
+ *         description: Non trouvé
+ *   delete:
+ *     summary: Supprimer un cinéma
+ *     parameters:
+ *       - name: idTheater
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Supprimé
+ *       404:
+ *         description: Non trouvé
+ */
 import { NextRequest, NextResponse } from 'next/server';
 import { Db, MongoClient, ObjectId } from 'mongodb';
 import clientPromise from '@/lib/mongodb';
