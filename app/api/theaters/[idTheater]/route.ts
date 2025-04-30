@@ -31,7 +31,7 @@ export async function GET(request: Request, { params }: { params: any }): Promis
   try {
     const { idTheater } = params;
 
-    // VÃ©rification si l'ID est bien un ObjectId valide
+    // Vérification si l'ID est bien un ObjectId valide
     if (!ObjectId.isValid(idTheater)) {
       return NextResponse.json({ status: 400, message: 'Invalid theater ID', error: 'ID format is incorrect' });
     }
