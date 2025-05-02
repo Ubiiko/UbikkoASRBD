@@ -8,8 +8,8 @@ Movies API est une application web construite avec **Next.js**, **TypeScript**, 
 
 ## 🔗 Liens utiles
 
-- 🔌 API en production : https://votre-api.vercel.app  
-- 📘 Documentation Swagger : https://votre-api.vercel.app/api-doc  
+- 🔌 API en production : https://votre-api.vercel.app
+- 📘 Documentation Swagger : https://votre-api.vercel.app/api-doc
 - 💻 Dépôt GitHub : https://github.com/votre-username/votre-repo
 
 ---
@@ -70,13 +70,13 @@ La documentation complète est disponible via Swagger à `/api-doc`.
 
 ### 🎥 Endpoints - Films (Movies)
 
-| Méthode | Endpoint | Description |
-|--------|----------|-------------|
-| GET    | /api/movies | Récupérer tous les films |
-| GET    | /api/movies/:idMovie | Récupérer un film spécifique |
-| POST   | /api/movies/:idMovie | Créer un nouveau film |
-| PUT    | /api/movies/:idMovie | Mettre à jour un film |
-| DELETE | /api/movies/:idMovie | Supprimer un film |
+| Méthode | Endpoint             | Description                  |
+| ------- | -------------------- | ---------------------------- |
+| GET     | /api/movies          | Récupérer tous les films     |
+| GET     | /api/movies/:idMovie | Récupérer un film spécifique |
+| POST    | /api/movies/:idMovie | Créer un nouveau film        |
+| PUT     | /api/movies/:idMovie | Mettre à jour un film        |
+| DELETE  | /api/movies/:idMovie | Supprimer un film            |
 
 ➡️ Chaque film est identifié par un `idMovie`. Les opérations permettent d’effectuer des actions CRUD sur les films.
 
@@ -84,13 +84,13 @@ La documentation complète est disponible via Swagger à `/api-doc`.
 
 ### 💬 Endpoints - Commentaires (Comments)
 
-| Méthode | Endpoint | Description |
-|--------|----------|-------------|
-| GET    | /api/movies/:idMovie/comments | Récupérer les commentaires d’un film |
-| GET    | /api/movies/:idMovie/comments/:idComment | Récupérer un commentaire spécifique |
-| POST   | /api/movies/:idMovie/comments/:idComment | Ajouter un commentaire |
-| PUT    | /api/movies/:idMovie/comments/:idComment | Modifier un commentaire |
-| DELETE | /api/movies/:idMovie/comments/:idComment | Supprimer un commentaire |
+| Méthode | Endpoint                                 | Description                          |
+| ------- | ---------------------------------------- | ------------------------------------ |
+| GET     | /api/movies/:idMovie/comments            | Récupérer les commentaires d’un film |
+| GET     | /api/movies/:idMovie/comments/:idComment | Récupérer un commentaire spécifique  |
+| POST    | /api/movies/:idMovie/comments/:idComment | Ajouter un commentaire               |
+| PUT     | /api/movies/:idMovie/comments/:idComment | Modifier un commentaire              |
+| DELETE  | /api/movies/:idMovie/comments/:idComment | Supprimer un commentaire             |
 
 ➡️ Les commentaires sont liés à un `idMovie` et identifiés par un `idComment`. Cela permet d’attacher dynamiquement des avis à un film spécifique.
 
@@ -98,13 +98,13 @@ La documentation complète est disponible via Swagger à `/api-doc`.
 
 ### 🎭 Endpoints - Théâtres (Theaters)
 
-| Méthode | Endpoint | Description |
-|--------|----------|-------------|
-| GET    | /api/theaters | Récupérer tous les théâtres |
-| GET    | /api/theaters/:idTheater | Récupérer un théâtre |
-| POST   | /api/theaters/:idTheater | Créer un théâtre |
-| PUT    | /api/theaters/:idTheater | Modifier un théâtre |
-| DELETE | /api/theaters/:idTheater | Supprimer un théâtre |
+| Méthode | Endpoint                 | Description                 |
+| ------- | ------------------------ | --------------------------- |
+| GET     | /api/theaters            | Récupérer tous les théâtres |
+| GET     | /api/theaters/:idTheater | Récupérer un théâtre        |
+| POST    | /api/theaters/:idTheater | Créer un théâtre            |
+| PUT     | /api/theaters/:idTheater | Modifier un théâtre         |
+| DELETE  | /api/theaters/:idTheater | Supprimer un théâtre        |
 
 ➡️ Cette section permet de gérer des emplacements de projection, comme des cinémas ou lieux fictifs.
 
@@ -125,19 +125,41 @@ curl -X POST https://votre-api.vercel.app/api/movies/573a1390f29313caabcd42e8/co
 ## 📁 Structure du projet
 
 ```
-├── app/
-│   ├── api/
-│   │   └── movies/
-│   │       └── [idMovie]/
-│   │           └── comments/
-│   │               └── [idComment]/
-│   └── api-doc/
-├── lib/           # Connexion MongoDB + Swagger
-├── public/
-├── styles/
-├── .env.local
+├── .next/                         # Fichiers de build générés par Next.js
+├── app/                           # Dossier principal avec App Router
+│   ├── api/                       # API REST
+│   │   ├── movies/               # Ressource principale : films
+│   │   │   ├── [idMovie]/        # Film spécifique
+│   │   │   │   └── comments/
+│   │   │   │       └── [idComment]/
+│   │   │   │           └── route.ts
+│   │   │   └── route.ts          # Tous les films
+│   │   ├── theaters/
+│   │   │   ├── [idTheater]/
+│   │   │   │   └── route.ts
+│   │   │   └── route.ts
+│   ├── api-doc/                  # Swagger UI intégré
+│   │   ├── page.tsx
+│   │   └── react-swagger.tsx
+│   ├── app-demo/                 # Démo de l'application
+│   │   ├── page.tsx
+│   │   ├── actions.ts
+│   │   ├── favicon.ico
+│   │   └── layout.tsx
+├── lib/                          # Fonctions utilitaires (ex: MongoDB, Swagger)
+├── node_modules/
+├── pages/                        # (optionnel - pages classiques si utilisées)
+├── public/                       # Fichiers statiques
+├── styles/                       # Fichiers CSS
+├── .env.local                    # Variables d’environnement (non commit)
+├── .gitignore
 ├── next.config.js
-└── package.json
+├── next-env.d.ts
+├── package.json
+├── package-lock.json
+├── postcss.config.js
+├── tailwind.config.ts
+├── README.md
 ```
 
 ---
