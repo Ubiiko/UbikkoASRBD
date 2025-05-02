@@ -1,83 +1,157 @@
-## Example app using MongoDB
+# 🎬 Movies API – Next.js & MongoDB Atlas
 
-[MongoDB](https://www.mongodb.com/) is a general purpose, document-based, distributed database built for modern application developers and for the cloud era. This example will show you how to connect to and use MongoDB as your backend for your Next.js app.
+## 📋 Présentation
 
-If you want to learn more about MongoDB, visit the following pages:
+Movies API est une application web construite avec **Next.js**, **TypeScript**, et **MongoDB Atlas**, qui expose une **API RESTful** permettant de gérer des films, leurs commentaires, et des théâtres. Elle intègre **Swagger UI** pour la documentation, et est déployable facilement via **Vercel**.
 
-- [MongoDB Atlas](https://mongodb.com/atlas)
-- [MongoDB Documentation](https://docs.mongodb.com/)
+---
 
-## Deploy your own
+## 🔗 Liens utiles
 
-Once you have access to the environment variables you'll need, deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-mongodb)
+- 🔌 API en production : https://votre-api.vercel.app  
+- 📘 Documentation Swagger : https://votre-api.vercel.app/api-doc  
+- 💻 Dépôt GitHub : https://github.com/votre-username/votre-repo
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?project-name=with-mongodb&repository-name=with-mongodb&repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-mongodb&integration-ids=oac_jnzmjqM10gllKmSrG0SGrHOH)
+---
 
-## How to use
+## 🧰 Technologies utilisées
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+- **Next.js** – Framework React moderne avec App Router
+- **TypeScript** – Langage typé pour JavaScript
+- **MongoDB Atlas** – Base de données NoSQL cloud
+- **Swagger UI React** – Documentation interactive de l’API
+- **Vercel** – Déploiement simple et rapide
 
-```bash
-npx create-next-app --example with-mongodb with-mongodb-app
-```
+---
 
-```bash
-yarn create next-app --example with-mongodb with-mongodb-app
-```
+## 🚀 Installation et démarrage
 
-```bash
-pnpm create next-app --example with-mongodb with-mongodb-app
-```
+### Prérequis
 
-## Configuration
+- Node.js v18+
+- Compte MongoDB Atlas avec base `sample_mflix`
+- Git + Vercel (facultatif pour déploiement)
 
-### Set up a MongoDB database
-
-Set up a MongoDB database either locally or with [MongoDB Atlas for free](https://mongodb.com/atlas).
-
-### Set up environment variables
-
-Copy the `env.local.example` file in this directory to `.env.local` (which will be ignored by Git):
+### Étapes
 
 ```bash
+# 1. Cloner le dépôt
+git clone https://github.com/votre-username/votre-repo.git
+cd votre-repo
+
+# 2. Installer les dépendances
+npm install
+
+# 3. Configurer les variables d’environnement
 cp .env.local.example .env.local
 ```
 
-Set each variable on `.env.local`:
+📌 **Important :** Le fichier `.env.local` **n’est pas inclus dans le dépôt GitHub** pour des raisons de sécurité. Ce fichier contient des données sensibles comme la chaîne de connexion MongoDB. Il est à créer et à configurer manuellement.
 
-- `MONGODB_URI` - Your MongoDB connection string. If you are using [MongoDB Atlas](https://mongodb.com/atlas) you can find this by clicking the "Connect" button for your cluster.
+**Exemple de contenu** :
 
-### Run Next.js in development mode
-
-```bash
-npm install
-npm run dev
-# or
-yarn install
-yarn dev
-# or
-pnpm install
-pnpm dev
+```
+MONGODB_URI=mongodb+srv://<user>:<password>@<cluster>/<database>?retryWrites=true&w=majority
 ```
 
-Your app should be up and running on [http://localhost:3000](http://localhost:3000)! If it doesn't work, post on [GitHub discussions](https://github.com/vercel/next.js/discussions).
+```bash
+# 4. Lancer le serveur de développement
+npm run dev
+```
 
-You will either see a message stating "You are connected to MongoDB" or "You are NOT connected to MongoDB". Ensure that you have provided the correct `MONGODB_URI` environment variable.
+🟢 Accès local : [http://localhost:3000](http://localhost:3000)  
+📚 Documentation : [http://localhost:3000/api-doc](http://localhost:3000/api-doc)
 
-When you are successfully connected, you can refer to the [MongoDB Node.js Driver docs](https://mongodb.github.io/node-mongodb-native/3.4/tutorials/collections/) for further instructions on how to query your database.
+---
 
-## Deploy on Vercel
+## 📚 Documentation des endpoints
 
-You can deploy this app to the cloud with [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+La documentation complète est disponible via Swagger à `/api-doc`.
 
-#### Deploy Your Local Project
+### 🎥 Endpoints - Films (Movies)
 
-To deploy your local project to Vercel, push it to GitHub/GitLab/Bitbucket and [import to Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example).
+| Méthode | Endpoint | Description |
+|--------|----------|-------------|
+| GET    | /api/movies | Récupérer tous les films |
+| GET    | /api/movies/:idMovie | Récupérer un film spécifique |
+| POST   | /api/movies/:idMovie | Créer un nouveau film |
+| PUT    | /api/movies/:idMovie | Mettre à jour un film |
+| DELETE | /api/movies/:idMovie | Supprimer un film |
 
-**Important**: When you import your project on Vercel, make sure to click on **Environment Variables** and set them to match your `.env.local` file.
+➡️ Chaque film est identifié par un `idMovie`. Les opérations permettent d’effectuer des actions CRUD sur les films.
 
-#### Deploy from Our Template
+---
 
-Alternatively, you can deploy using our template by clicking on the Deploy button below.
+### 💬 Endpoints - Commentaires (Comments)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?project-name=with-mongodb&repository-name=with-mongodb&repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-mongodb&integration-ids=oac_jnzmjqM10gllKmSrG0SGrHOH)
+| Méthode | Endpoint | Description |
+|--------|----------|-------------|
+| GET    | /api/movies/:idMovie/comments | Récupérer les commentaires d’un film |
+| GET    | /api/movies/:idMovie/comments/:idComment | Récupérer un commentaire spécifique |
+| POST   | /api/movies/:idMovie/comments/:idComment | Ajouter un commentaire |
+| PUT    | /api/movies/:idMovie/comments/:idComment | Modifier un commentaire |
+| DELETE | /api/movies/:idMovie/comments/:idComment | Supprimer un commentaire |
+
+➡️ Les commentaires sont liés à un `idMovie` et identifiés par un `idComment`. Cela permet d’attacher dynamiquement des avis à un film spécifique.
+
+---
+
+### 🎭 Endpoints - Théâtres (Theaters)
+
+| Méthode | Endpoint | Description |
+|--------|----------|-------------|
+| GET    | /api/theaters | Récupérer tous les théâtres |
+| GET    | /api/theaters/:idTheater | Récupérer un théâtre |
+| POST   | /api/theaters/:idTheater | Créer un théâtre |
+| PUT    | /api/theaters/:idTheater | Modifier un théâtre |
+| DELETE | /api/theaters/:idTheater | Supprimer un théâtre |
+
+➡️ Cette section permet de gérer des emplacements de projection, comme des cinémas ou lieux fictifs.
+
+---
+
+## 🧪 Exemples d’utilisation
+
+```bash
+# Récupérer un film
+curl -X GET https://votre-api.vercel.app/api/movies/573a1390f29313caabcd42e8
+
+# Ajouter un commentaire
+curl -X POST https://votre-api.vercel.app/api/movies/573a1390f29313caabcd42e8/comments/5a9427648b0beebeb69579e7
+```
+
+---
+
+## 📁 Structure du projet
+
+```
+├── app/
+│   ├── api/
+│   │   └── movies/
+│   │       └── [idMovie]/
+│   │           └── comments/
+│   │               └── [idComment]/
+│   └── api-doc/
+├── lib/           # Connexion MongoDB + Swagger
+├── public/
+├── styles/
+├── .env.local
+├── next.config.js
+└── package.json
+```
+
+---
+
+## ☁️ Déploiement avec Vercel
+
+1. Poussez le repo sur GitHub.
+2. Connectez-le à [https://vercel.com](https://vercel.com).
+3. Définissez `MONGODB_URI` dans les variables d’environnement.
+4. Cliquez sur **Deploy**.
+
+---
+
+## 👥 Contributeurs
+
+Julien **ENFEDAQUE-MORER**  
+Rémi **TRAN SAMMARCELLI**
